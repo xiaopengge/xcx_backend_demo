@@ -10,11 +10,23 @@ class Login
     /**
      * 显示资源列表
      *
+     * @param Request $request
      * @return \think\Response
+     * @throws \EasyWeChat\Kernel\Exceptions\InvalidArgumentException
+     * @throws \EasyWeChat\Kernel\Exceptions\InvalidConfigException
+     * @throws \EasyWeChat\Kernel\Exceptions\RuntimeException
      */
     public function index(Request $request)
     {
-        return app('wechat')->auth->session($request->get('code'));
+        /** @var \EasyWeChat\MiniProgram\Application $wechat */
+        $wechat = app('wechat');
+        $response = $wechat->app_code->get('/tmp');
+        if ($response instanceof \EasyWeChat\Kernel\Http\StreamResponse) {
+            $filename = $response->saveAs('/tmp', 'appcode.png');
+            dd($filename);
+        }
+        dd(233);
+        return $wechat->auth->session($request->get('code'));
     }
 
     /**
