@@ -17,7 +17,9 @@ class WechatService  extends \think\Service
     {
         $config = [
             'app_id' => env('WECHAT.APPID'),
+            'app_id' => "wx5fcaf84cfe377362",
             'secret' => env('WECHAT.APPSECRET'),
+            'secret' => "43bba8f069cee247fa2e839675641cc1",
 
             // 下面为可选项
             // 指定 API 调用返回结果的类型：array(default)/collection/object/raw/自定义类名
