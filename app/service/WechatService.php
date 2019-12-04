@@ -16,8 +16,8 @@ class WechatService  extends \think\Service
     public function register()
     {
         $config = [
-            'app_id' => 'wxc9be4e3556ce5781',
-            'secret' => 'b3a69c6e243a8f5d2cebadc023682e65',
+            'app_id' => 'wx2f3eb40efe5db9d9',
+            'secret' => 'dc31e58509775faf04b9f735c2f51ae4',
 
             // 下面为可选项
             // 指定 API 调用返回结果的类型：array(default)/collection/object/raw/自定义类名
