@@ -8,25 +8,38 @@ use think\Request;
 class Login
 {
     /**
+     * @var \EasyWeChat\MiniProgram\Application
+     */
+    private $wechat;
+
+    public function __construct()
+    {
+        $this->wechat = app('wechat');
+    }
+
+    /**
      * 显示资源列表
      *
      * @param Request $request
      * @return \think\Response
-     * @throws \EasyWeChat\Kernel\Exceptions\InvalidArgumentException
      * @throws \EasyWeChat\Kernel\Exceptions\InvalidConfigException
-     * @throws \EasyWeChat\Kernel\Exceptions\RuntimeException
      */
     public function index(Request $request)
     {
-        /** @var \EasyWeChat\MiniProgram\Application $wechat */
-        $wechat = app('wechat');
-        $response = $wechat->app_code->get('/tmp');
+        return $this->wechat->auth->session($request->get('code'));
+    }
+
+    /**
+     * @throws \EasyWeChat\Kernel\Exceptions\InvalidArgumentException
+     * @throws \EasyWeChat\Kernel\Exceptions\RuntimeException
+     */
+    public function appcode() {
+        $path = root_path() . '/public';
+        $response = $this->wechat->app_code->get($path);
         if ($response instanceof \EasyWeChat\Kernel\Http\StreamResponse) {
-            $filename = $response->saveAs('/tmp', 'appcode.png');
+            $filename = $response->saveAs($path, 'appcode.png');
             dd($filename);
         }
-        dd(233);
-        return $wechat->auth->session($request->get('code'));
     }
 
     /**
